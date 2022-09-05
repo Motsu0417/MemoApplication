@@ -58,6 +58,15 @@ class RecyclerViewFragment(itemArray: ArrayList<Item>) : Fragment() {
             addItemDecoration(decoration)
         }
 
+        binding.createButton.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply{
+            replace(R.id.edit_fragment_container,
+            EditFragment(itemArray),
+        "EditFragment")
+            }.commit()
+//            parentFragmentManager.beginTransaction().remove(this).commit();
+        }
+
         return binding.root
     }
 }

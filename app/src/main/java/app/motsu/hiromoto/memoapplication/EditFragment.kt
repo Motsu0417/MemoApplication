@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import app.motsu.hiromoto.memoapplication.databinding.FragmentEditBinding
 
-class EditFragment : Fragment() {
+class EditFragment(itemArray: ArrayList<Item>) : Fragment() {
 
     private lateinit var binding:FragmentEditBinding
+    private val itemArray = itemArray
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -23,7 +24,10 @@ class EditFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentEditBinding.inflate(layoutInflater)
 
+        binding.doneButton.setOnClickListener{
+//            itemArray.add()
 
+        }
 
         return binding.root
     }

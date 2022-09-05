@@ -17,7 +17,9 @@ class MainActivity : AppCompatActivity() {
 
 
         supportFragmentManager.beginTransaction().apply{
-            replace(R.id.edit_fragment_container, RecyclerViewFragment(itemArray), "RecyclerFragment")
+            replace(R.id.edit_fragment_container,
+            RecyclerViewFragment(itemArray),
+        "RecyclerFragment")
         }.commit()
     }
 }
