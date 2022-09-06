@@ -7,7 +7,6 @@ import app.motsu.hiromoto.memoapplication.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val itemArray:ArrayList<Item> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,9 +17,13 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().apply{
             replace(R.id.edit_fragment_container,
-            RecyclerViewFragment(itemArray),
+            RecyclerViewFragment(),
         "RecyclerFragment")
         }.commit()
+    }
+
+    companion object{
+        val itemArray:ArrayList<Item> = ArrayList()
     }
 }
 

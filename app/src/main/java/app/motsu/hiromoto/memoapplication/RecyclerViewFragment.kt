@@ -6,14 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.motsu.hiromoto.memoapplication.databinding.FragmentRecyclerViewBinding
 
-class RecyclerViewFragment(itemArray: ArrayList<Item>) : Fragment() {
+class RecyclerViewFragment() : Fragment() {
 
     private lateinit var binding: FragmentRecyclerViewBinding
-    private val itemArray = itemArray
+    private val itemArray = MainActivity.itemArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,22 +47,23 @@ class RecyclerViewFragment(itemArray: ArrayList<Item>) : Fragment() {
                 state: RecyclerView.State) {
                 // アイテムの上下左右へ空間を設ける
                 // outRect.set(leftの空間, topの空間, rightの空間, bottomの空間)
-                outRect.set(50, 10, 50, 10)
+                outRect.set(50, 40, 50, 40)
             }
         }
 
 
         binding.recyclerView.apply{
             adapter = ListAdapter(itemArray)
-            layoutManager = LinearLayoutManager(this.context)
+            layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             addItemDecoration(decoration)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
         binding.createButton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply{
             replace(R.id.edit_fragment_container,
-            EditFragment(itemArray),
+            EditFragment(),
         "EditFragment")
             }.commit()
 //            parentFragmentManager.beginTransaction().remove(this).commit();
