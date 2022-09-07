@@ -6,15 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.motsu.hiromoto.memoapplication.databinding.FragmentRecyclerViewBinding
 
-class RecyclerViewFragment() : Fragment() {
+class RecyclerViewFragment(private val rootActivity: AppCompatActivity) : Fragment() {
 
     private lateinit var binding: FragmentRecyclerViewBinding
-    private val itemArray = MainActivity.itemArray
+    private val items = MainActivity.items
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class RecyclerViewFragment() : Fragment() {
 
 
         binding.recyclerView.apply{
-            adapter = ListAdapter(itemArray)
+            adapter = ListAdapter(items, rootActivity)
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             addItemDecoration(decoration)
@@ -63,7 +64,7 @@ class RecyclerViewFragment() : Fragment() {
         binding.createButton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply{
             replace(R.id.edit_fragment_container,
-            EditFragment(),
+            EditFragment(rootActivity, null),
         "EditFragment")
             }.commit()
 //            parentFragmentManager.beginTransaction().remove(this).commit();
