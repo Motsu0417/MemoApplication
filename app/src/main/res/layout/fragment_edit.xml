@@ -9,15 +9,33 @@
     android:layout_margin="8dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_edit_text"
+        android:id="@+id/title_edit_text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:hint="メモ"
+        android:hint="タイトル"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/title_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/detail_edit_text_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="本文"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_edit_text_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/memo_edit_text"
@@ -25,7 +43,6 @@
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/done_button"
@@ -45,8 +62,9 @@
         android:layout_marginEnd="8dp"
         android:text="Delete"
         android:textColor="#000000"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/save_button"
-        app:layout_constraintTop_toBottomOf="@+id/title_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/detail_edit_text_layout" />
 
     <Button
         android:id="@+id/save_button"
@@ -55,6 +73,7 @@
         android:layout_margin="5dp"
         android:layout_marginEnd="5dp"
         android:text="Save"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/detail_edit_text_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
