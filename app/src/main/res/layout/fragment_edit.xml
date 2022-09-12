@@ -20,6 +20,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/title_Edit_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -37,12 +38,14 @@
         app:layout_constraintTop_toBottomOf="@id/title_edit_text_layout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/memo_Edit_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

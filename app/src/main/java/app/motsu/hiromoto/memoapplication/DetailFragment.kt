@@ -17,8 +17,8 @@ class DetailFragment(private val rootActivity: AppCompatActivity, val position:I
     private val items = MainActivity.items
     private lateinit var binding: FragmentDetailBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        // これを宣言しないとMenuが反応しないとのこと
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
@@ -46,11 +46,12 @@ class DetailFragment(private val rootActivity: AppCompatActivity, val position:I
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_detail, container, false)
+        // bindingを定義しそれぞれTextViewにメモの値を代入
         binding = FragmentDetailBinding.inflate(layoutInflater)
         binding.titleTextView.text = items[position].title
         binding.memoTextView.text = items[position].memo
+
+        // toolbarのメニュークリックに機能を付与
         binding.toolbar.setOnMenuItemClickListener{
             when(it.itemId){
                 R.id.action_delete ->{
@@ -60,6 +61,8 @@ class DetailFragment(private val rootActivity: AppCompatActivity, val position:I
             }
             return@setOnMenuItemClickListener true
         }
+
+        // FloatingActionButton押下時はEditFragmentに遷移
         binding.detailEditButton.setOnClickListener{
             parentFragmentManager.beginTransaction().apply{
                 replace(R.id.edit_fragment_container,
@@ -67,11 +70,7 @@ class DetailFragment(private val rootActivity: AppCompatActivity, val position:I
                     "EditFragment")
             }.commit()
         }
-
+        // 最後にLayoutを返す
         return binding.root
-    }
-
-    companion object {
-
     }
 }

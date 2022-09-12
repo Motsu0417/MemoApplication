@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
-class ListAdapter(private val items:ArrayList<Item>, val rootActivity: AppCompatActivity): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class ListAdapter(private val items:ArrayList<Item>, private val rootActivity: AppCompatActivity): RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view) {
         val titleTextView:TextView = view.findViewById(R.id.item_title)
@@ -24,12 +24,12 @@ class ListAdapter(private val items:ArrayList<Item>, val rootActivity: AppCompat
         holder.titleTextView.text = items[position].title
         holder.memoTextView.text = items[position].memo
 
+        // リストのアイテムクリック時に詳細画面への遷移を行う機能の付与
         holder.view.setOnClickListener {
-//            Toast.makeText(holder.view.context, holder.title.text.toString(),Toast.LENGTH_SHORT).show()
             rootActivity.supportFragmentManager.beginTransaction().apply{
                 replace(R.id.edit_fragment_container,
                     DetailFragment(rootActivity, position),
-                    "EditFragment")
+                    "DetailFragment")
             }.commit()
         }
     }

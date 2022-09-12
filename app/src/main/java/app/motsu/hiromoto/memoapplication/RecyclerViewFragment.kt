@@ -17,17 +17,13 @@ class RecyclerViewFragment(private val rootActivity: AppCompatActivity) : Fragme
     private lateinit var binding: FragmentRecyclerViewBinding
     private val items = MainActivity.items
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentRecyclerViewBinding.inflate(layoutInflater)
 
+        // リサイクラービューの装飾作成
         val decoration = object : RecyclerView.ItemDecoration() {
 //            override fun onDraw(
 //                c: Canvas, parent: RecyclerView,
@@ -52,7 +48,6 @@ class RecyclerViewFragment(private val rootActivity: AppCompatActivity) : Fragme
             }
         }
 
-
         binding.recyclerView.apply{
             adapter = ListAdapter(items, rootActivity)
             layoutManager = LinearLayoutManager(context)
@@ -61,13 +56,13 @@ class RecyclerViewFragment(private val rootActivity: AppCompatActivity) : Fragme
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
+        // ＋ボタン押下時には編集に新規作成モードで遷移
         binding.createButton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply{
             replace(R.id.edit_fragment_container,
             EditFragment(rootActivity, null),
         "EditFragment")
             }.commit()
-//            parentFragmentManager.beginTransaction().remove(this).commit();
         }
 
         return binding.root

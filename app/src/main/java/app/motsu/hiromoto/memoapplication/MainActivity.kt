@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         // jsonの読み込み
         val assetManager = resources.assets
         try {
-//            val inputStream = assetManager.open("ListData.json")
             val filepath = filesDir.path + "/ListData.json"
             val file = File(filepath)
             // ファイルが存在していれば読み込みを行う
@@ -33,12 +32,14 @@ class MainActivity : AppCompatActivity() {
                 val str = bufferedReader.readText()
                 // JsonArrayに格納する
                 val jsonArray = JSONArray(str)
+                // jsonArrayから要素を取り出しリストに格納する
                 for (i in 0 until jsonArray.length()) {
                     jsonArray.getJSONObject(i).let {
                         items.add(Item(it.getString("title"), it.getString("memo")))
                     }
                 }
             }else{
+            // データが存在しない（ファイルが存在しない）ばあいは無視
             Log.d(TAG, "Saved data is nothing")
         }
 
@@ -72,18 +73,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object{
+        // メモを保存するArrayList（全クラス共通）
         val items:ArrayList<Item> = ArrayList()
     }
 
+    // 停止時に外部ファイルに書き出すことで保存する
     override fun onStop() {
-
         // jsonの書き出し
         try{
+            // ファイルの取得
             val filepath = filesDir.path + "/ListData.json"
             val file = File(filepath)
             val fileWriter = FileWriter(file, false)
             val bufferdWriter = BufferedWriter(fileWriter)
 
+            // ArrayListのデータをそれぞれJsonArrayにJsonObjectとして配置
             val jsonArray = JSONArray()
             items.forEach{
                 val jsonObject = JSONObject()
@@ -92,13 +96,13 @@ class MainActivity : AppCompatActivity() {
                 jsonArray.put(jsonObject)
             }
             Log.d(TAG, "onStop: $jsonArray")
+
+            // BufferdWriterでファイルに書き出しを行う
             bufferdWriter.write(jsonArray.toString())
             bufferdWriter.close()
         }catch(e:Exception){
             Log.e(TAG, "onStop: ", e)
         }
-
-
 
         // SharedPreferencesを利用したデータ保存
 //        var saveData = ""
@@ -122,8 +126,6 @@ class MainActivity : AppCompatActivity() {
                     RecyclerViewFragment(this@MainActivity),
                     "RecyclerFragment")
             }.commit()
-
-
         }else{
             super.onBackPressed()
         }
@@ -131,10 +133,8 @@ class MainActivity : AppCompatActivity() {
 }
 
 class Item{
-
     var title = ""
     var memo = ""
-
     constructor(title: String) {
         this.title = title
     }
